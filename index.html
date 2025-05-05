@@ -1,115 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CVWこども∞コネクト</title>
+  <meta charset="UTF-8">
+  <title>CVWID 仮会員ログイン</title>
   <style>
     body {
-      background: #fff;
-      font-family: sans-serif;
-      color: #111;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
     header {
-      background: linear-gradient(to right, magenta, cyan);
-      text-align: center;
-      padding: 1em;
-      font-size: 2em;
-      font-weight: bold;
+      background: #00a7ff;
+      color: white;
+      padding: 20px;
     }
-    .subtitle {
-      font-size: 1.2em;
-      color: #333;
+    h1 {
+      margin: 0;
     }
-    .section {
-      border: 2px solid cyan;
-      border-radius: 10px;
-      margin: 1em;
-      padding: 1em;
-      background: #f9f9f9;
+    .selector {
+      margin-top: 40px;
     }
-    .title {
-      color: magenta;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-    }
-    .btn {
-      background: yellow;
-      color: black;
-      padding: 0.5em 1em;
+    .selector button {
+      font-size: 18px;
+      margin: 10px;
+      padding: 15px 30px;
       border: none;
-      border-radius: 1em;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 0.5em;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
     }
-    .card {
-      margin: 0.5em 0;
-      background: #fff;
-      padding: 1em;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    .child { background-color: #ff80ab; }
+    .parent { background-color: #00bfa5; }
+    .worker { background-color: #9575cd; }
+    .page {
+      display: none;
+      padding: 30px;
     }
-    .amount {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #007acc;
+    .visible {
+      display: block;
     }
   </style>
 </head>
 <body>
   <header>
-    CVW<br><span class="subtitle">こども∞コネクト</span>
+    <h1>CVWID - 仮会員ログイン</h1>
+    <p>あなたに合った入り口を選んでください</p>
   </header>
 
-  <div class="section">
-    <div class="title">一般社団法人CVW JAPANデジタルリンク集</div>
-    <a class="btn" href="https://cvwjapan-1.jimdosite.com/">公式ホームページはこちら</a>
+  <div class="selector">
+    <button class="child" onclick="showPage('child')">子どもとして入る</button>
+    <button class="parent" onclick="showPage('parent')">保護者として入る</button>
+    <button class="worker" onclick="showPage('worker')">支援者・福祉司として入る</button>
   </div>
 
-  <div class="section">
-    <div class="title">子育て支援情報（全国対応）</div>
-    <div class="card">
-      <p>018サポート：0歳〜18歳に月5,000円支給（申請必要）</p>
-      <p>とうきょうパスポート：協賛店で割引やサービス</p>
-      <p>赤ちゃんファースト：出産後10万円分のギフト提供</p>
-      <p>その他：病児保育・ショートステイなど</p>
-    </div>
-    <a class="btn" href="https://www.wam.go.jp/kokodesearch/ANN010100E00.do">子育て支援情報をみる</a>
+  <div id="child" class="page">
+    <h2>子ども用マイページ</h2>
+    <p>こんにちは！あなたの話を聞く準備ができているよ。</p>
+  </div>
+  <div id="parent" class="page">
+    <h2>保護者用マイページ</h2>
+    <p>子育ての悩み、一緒に考えていきましょう。</p>
+  </div>
+  <div id="worker" class="page">
+    <h2>支援者・福祉司マイページ</h2>
+    <p>支援記録や通告判断など、必要な情報をご提供します。</p>
   </div>
 
-  <div class="section">
-    <div class="title">障がい児支援・発達支援情報</div>
-    <div class="card">
-      <p>障がい児支援サービス・発達支援制度・支援団体情報など</p>
-    </div>
-    <a class="btn" href="https://www8.cao.go.jp/shougai/">障がい支援情報へ</a>
-  </div>
-
-  <div class="section">
-    <div class="title">地域児童センター設立クラウドファンディング</div>
-    <div class="card">
-      <p>目標金額：¥50,000,000</p>
-      <p>現在の支援総額：<span class="amount">¥3,240,500</span></p>
-      <a class="btn" href="https://checkout.square.site/merchant/MLX30TSTRDSNB/checkout/RLEFR7MZEVMZKTKADM4TVTAS">支援する</a>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="title">児童虐待防止YouTube動画</div>
-    <div class="card">
-      <iframe width="100%" height="200" src="https://www.youtube.com/embed/hXDnbsgMYbk" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="title">こども家庭庁ニュースリンク</div>
-    <div class="card">
-      <a class="btn" href="https://www.cfa.go.jp/">こども家庭庁サイトへ</a>
-    </div>
-  </div>
+  <script>
+    function showPage(role) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+      document.getElementById(role).classList.add('visible');
+    }
+  </script>
 </body>
 </html>
