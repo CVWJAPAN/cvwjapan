@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタルママメンターシップ</title>
+    <style>
+        body{font-family:Arial,sans-serif;background:#fff5f5;margin:0;padding:20px;text-align:center}
+        #welcome-screen,#mentorship-container{max-width:600px;margin:0 auto;background:#fff;padding:20px;border-radius:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1);text-align:left}
+        #mentorship-container{display:none}
+        h1{color:#c71585;font-size:24px;margin-bottom:10px}
+        h2{color:#c71585;font-size:18px;margin-top:20px;border-bottom:1px solid #ffe4e1;padding-bottom:5px}
+        h3{color:#ff69b4;font-size:16px;margin-top:10px}
+        p,li{font-size:14px;color:#333;line-height:1.5}
+        .button{background:#ff69b4;color:#fff;padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:14px;margin:10px 0}
+        .button:hover{background:#ff4f9a}
+        #chat-box,#match-results{border:1px solid #e0e0e0;border-radius:10px;padding:15px;height:150px;overflow-y:scroll;background:#f9f9f9;margin-bottom:15px}
+        .chat-message,.mentor-item{margin:8px 0;padding:8px;border-radius:8px;font-size:13px}
+        .mentor-message{background:#ffe4e1;max-width:80%;margin-left:5px}
+        .user-message{background:#f5e1ff;text-align:right;max-width:80%;margin-left:auto;margin-right:5px}
+        .mentor-item{background:#fff0f5}
+        #user-input{width:calc(100% - 20px);padding:10px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;margin-bottom:10px}
+        #mentor-form{display:none;background:#f9f9f9;padding:15px;border-radius:10px;margin-top:10px;border-left:3px solid #ff69b4}
+        .mentor-section{margin-bottom:10px}
+        select, input[type="text"]{width:calc(100% - 20px);padding:8px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px}
+    </style>
+</head>
+<body>
+    <div id="welcome-screen">
+        <h1>デジタルママメンターシップ</h1>
+        <p>子育て中のママを経験豊富なママがサポート！メンターとマッチングして、悩みを解決しよう。MamaCoinで報酬もゲットできるよ！</p>
+        <p><strong>注意:</strong> 個人情報は入力しないでね。安全に利用してね。</p>
+        <button class="button" onclick="startMentorship()">メンターシップを始める</button>
+    </div>
+    <div id="mentorship-container">
+        <h1>デジタルママメンターシップ</h1>
+        <h2>メンターと話そう</h2>
+        <div id="chat-box">
+            <div class="chat-message mentor-message">メンター: こんにちは！子育ての悩みを教えてね。メンターとマッチングもできるよ！</div>
+        </div>
+        <input type="text" id="user-input" placeholder="悩みを入力..." onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()" class="button">送信</button>
+        <h2>メンターとマッチング</h2>
+        <button class="button" onclick="showMentorForm()">メンターを探す</button>
+        <div id="mentor-form">
+            <h3>メンターマッチングフォーム</h3>
+            <div class="mentor-section">
+                <label>子供の年齢:</label>
+                <select id="age">
+                    <option value="0-2">0-2歳</option>
+                    <option value="3-5">3-5歳</option>
+                    <option value="6-8">6-8歳</option>
+                    <option value="9-12">9-12歳</option>
+                </select>
+            </div>
+            <div class="mentor-section">
+                <label>悩み:</label>
+                <input type="text" id="concern" placeholder="例: 睡眠、食事、しつけ">
+            </div>
+            <button class="button" onclick="findMentor()">メンターを検索</button>
+        </div>
+        <div id="match-results"></div>
+    </div>
+
+    <script>
+        function startMentorship(){document.getElementById("welcome-screen").style.display="none";document.getElementById("mentorship-container").style.display="block"}
+        function sendMessage(){const e=document.getElementById("user-input"),t=document.getElementById("chat-box"),n=e.value.trim().toLowerCase();if(n){const s=document.createElement("div");s.className="chat-message user-message",s.innerText="あなた: "+n,t.appendChild(s);const a=document.createElement("div");a.className="chat-message mentor-message",a.innerText="メンター: "+getMentorResponse(n),t.appendChild(a),e.value="",t.scrollTop=t.scrollHeight}}
+        function getMentorResponse(e){return e.includes("寝ない")||e.includes("睡眠")?"子供が寝ないときは、ルーティンを作ると良いよ。メンターを探して詳しく聞いてみて！":e.includes("食事")?"食事の悩みなら、バランスを考えたメニューを。メンターに相談してみよう！":e.includes("しつけ")?"しつけは愛情を持ってね。メンターとマッチングしてみて！":"どんな悩みか教えて！メンターとマッチングもおすすめだよ！"}
+        function showMentorForm(){document.getElementById("mentor-form").style.display="block"}
+        function findMentor(){
+            const age=document.getElementById("age").value,concern=document.getElementById("concern").value.toLowerCase(),results=document.getElementById("match-results");results.innerHTML="";
+            const mentors=[
+                {age:"0-2",concern:"睡眠",name:"ゆきこ",message:"睡眠のプロです！",tokens:50,generation:"シニア"},
+                {age:"3-5",concern:"食事",name:"あや",message:"食事のアドバイスできます！",tokens:30,generation:"現役ママ"},
+                {age:"6-8",concern:"しつけ",name:"みほ",message:"しつけのコツ教えます！",tokens:40,generation:"現役ママ"},
+                {age:"3-5",concern:"睡眠",name:"さちこ",message:"昔ながらの寝かしつけ教えます！",tokens:60,generation:"シニア"}
+            ];
+            const matches=mentors.filter(m=>m.age===age&&m.concern.includes(concern));
+            if(matches.length===0){
+                const noMatch=document.createElement("div");
+                noMatch.className="mentor-item";
+                noMatch.innerText="メンターが見つからなかったよ…悩みを変えてみて！";
+                results.appendChild(noMatch);
+            }else{
+                matches.forEach(m=>{
+                    const item=document.createElement("div");
+                    item.className="mentor-item";
+                    item.innerHTML=`${m.name} (${m.generation}): ${m.message} (年齢: ${m.age}, 悩み: ${m.concern})<br>MamaCoin報酬: ${m.tokens}トークン<br><button class="button" style="font-size:12px;padding:5px 10px;margin-top:5px;">選択してチャット</button>`;
+                    results.appendChild(item);
+                });
+            }
+            results.style.display="block";
+        }
+    </script>
+</body>
+</html>
